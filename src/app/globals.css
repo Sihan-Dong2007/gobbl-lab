@@ -1,0 +1,106 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Light (default) — Harvest */
+    --bg:           250 246 235;   /* #FBF6EB */
+    --surface:      255 255 255;
+    --surface-2:    244 236 221;
+    --ink:           26  22  18;
+    --ink-soft:      92  74  58;
+    --ink-muted:    140 118  96;
+    --line:         232 221 198;
+    --primary:      192  70  28;
+    --primary-soft: 244 227 213;
+    --forest:        31  73  55;
+    --forest-soft:  213 223 212;
+    --ochre:        228 165  71;
+    --ochre-soft:   251 233 196;
+  }
+  .dark {
+    --bg:            26  22  18;
+    --surface:       37  32  25;
+    --surface-2:     48  41  33;
+    --ink:          242 229 204;
+    --ink-soft:     184 166 137;
+    --ink-muted:    110  98  83;
+    --line:          57  48  37;
+    --primary:      226  88  38;
+    --primary-soft:  78  35  20;
+    --forest:        95 174 133;
+    --forest-soft:   34  62  47;
+    --ochre:        240 181  71;
+    --ochre-soft:    66  50  24;
+  }
+
+  body {
+    @apply bg-bg text-ink;
+    font-feature-settings: "ss01", "cv11";  /* DM Sans stylistic tweaks */
+  }
+
+  /* Tighter heading defaults — Harvest spec */
+  h1, h2, h3, h4 {
+    @apply font-display;
+    text-wrap: balance;
+  }
+
+  /* Tabular numerals on .num-tabular wrapper */
+  .num-tabular {
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+@layer utilities {
+  /* Eyebrow label — mono, uppercase, wide tracking */
+  .eyebrow {
+    @apply font-mono text-eyebrow uppercase text-ink-muted;
+  }
+
+  /* Sparkle/glow for level-up moments */
+  .glow-ochre {
+    filter: drop-shadow(0 6px 24px rgba(228, 165, 71, 0.35));
+  }
+  .glow-primary {
+    filter: drop-shadow(0 6px 24px rgba(192, 70, 28, 0.25));
+  }
+
+  /* Hairline 1px border that survives high-DPI */
+  .border-hairline {
+    @apply border border-line;
+  }
+}
+
+/* Selection */
+::selection {
+  background: rgb(var(--primary) / 0.18);
+  color: rgb(var(--ink));
+}
+
+/* Scrollbar — warm, thin */
+::-webkit-scrollbar       { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: rgb(var(--line));
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(var(--ink-muted));
+}
+
+/* Keyboard focus — visible on every interactive element, invisible for mouse/touch */
+:focus-visible {
+  outline: 2px solid rgb(var(--primary));
+  outline-offset: 2px;
+}
+
+/* Respect reduced-motion preferences across the idle turkey animations and entrances */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
